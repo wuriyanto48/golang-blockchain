@@ -4,13 +4,20 @@ import (
 	"time"
 )
 
+type Chain interface {
+	AddBlock(block *Block)
+	GetLastBlock() *Block
+	GetBlocks() Blocks
+	IsChainStillValid() bool
+}
+
 // BlockChain model
 type BlockChain struct {
 	Blocks Blocks
 }
 
 // NewBlockChain initialize BlockChain Pointer/ constructor
-func NewBlockChain() *BlockChain {
+func NewBlockChain() Chain {
 	//date created, we use January this year
 	date, _ := time.Parse(time.RFC3339, "2017-01-01T22:08:41+00:00")
 	//create genesis block
@@ -39,6 +46,11 @@ func (b *BlockChain) AddBlock(block *Block) {
 // GetLastBlock function, get latest index of BlockChain's Blocks
 func (b *BlockChain) GetLastBlock() *Block {
 	return b.Blocks[len(b.Blocks)-1]
+}
+
+// GetBlocks function, return Blocks
+func (b *BlockChain) GetBlocks() Blocks {
+	return b.Blocks
 }
 
 // IsChainStillValid function that return error, will return false if one of block's value changed
