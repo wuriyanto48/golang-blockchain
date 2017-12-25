@@ -34,7 +34,7 @@ func main() {
 
 	fmt.Println(blockChain.IsChainStillValid())
 
-	for _, v := range blockChain.Blocks {
+	for _, v := range blockChain.GetBlocks() {
 		fmt.Println(v)
 	}
 }
